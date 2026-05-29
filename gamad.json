@@ -1,0 +1,14 @@
+{
+  "contract_version": "1.0",
+  "name": "gamad-nodejs-api",
+  "artifact_type": "docker-compose",
+  "source_ref": { "type": "branch", "value": "main" },
+  "runtime": { "compose_file": "docker-compose.yml", "ports": { "app": 3000 } },
+  "env": [
+    { "name": "NODE_ENV", "required": true, "secret": false, "default": "production" },
+    { "name": "PORT", "required": false, "secret": false, "default": "3000" },
+    { "name": "DATABASE_URL", "required": false, "secret": true }
+  ],
+  "health": { "checks": [{ "name": "api", "path": "/health", "expected_status": 200, "timeout_s": 30 }] },
+  "policies": { "ban_latest": true, "on_error_stop": true }
+}
